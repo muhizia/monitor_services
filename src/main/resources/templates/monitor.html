@@ -9,6 +9,11 @@
           rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
           crossorigin="anonymous">
+    <style>
+        .bg-color-green {
+          background-color:red;
+        }
+    </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script>
         var connect = function () {
@@ -22,7 +27,7 @@
             // Update the state when ever a message is sent
             source.addEventListener('message', function (e) {
                 var monitor = JSON.parse(e.data);
-                console.log("New transactions: " + JSON.stringify(monitor));
+                //console.log("New transactions: " + JSON.stringify(monitor));
                 convert(monitor);
             }, false);
 
@@ -59,6 +64,7 @@
            tr.append("<th>Service ID</th>");
            tr.append("<th>Service Name</th>");
            tr.append("<th>No of Transactions</th>");
+           tr.append("<th>Category</th>");
            tr.append("<th>Last transaction At</th>");
            thead.append(tr); // Append the header row to the header
            table.append(thead) // Append the header to the table
@@ -73,7 +79,23 @@
               // Loop through the values and create table cells
               $.each(vals, (i, elem) => {
                  let td = $("<td>");
-                 td.text(elem); // Set the value as the text of the table cell
+                 if(i == 3)
+                 {
+                    if(elem == 'A'){
+                        td.append("<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' fill='#009900' class='bi bi-circle-fill' viewBox='0 0 16 16'><circle cx='8' cy='8' r='8'/></svg>");
+                    }else if(elem == 'B'){
+                        td.append("<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' fill='#cc6600' class='bi bi-circle-fill' viewBox='0 0 16 16'><circle cx='8' cy='8' r='8'/></svg>");
+                    }else if(elem == 'C'){
+                        td.append("<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' fill='#ffcc33' class='bi bi-circle-fill' viewBox='0 0 16 16'><circle cx='8' cy='8' r='8'/></svg>");
+                    }
+                    else if(elem == 'D'){
+                        td.append("<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' fill='#ff9f80' class='bi bi-circle-fill' viewBox='0 0 16 16'><circle cx='8' cy='8' r='8'/></svg>");
+                    }else if(elem == 'E'){
+                        td.append("<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' fill='#cc3300' class='bi bi-circle-fill' viewBox='0 0 16 16'><circle cx='8' cy='8' r='8'/></svg>");
+                    }
+                 }else{
+                    td.text(elem); // Set the value as the text of the table cell
+                 }
                  tr.append(td); // Append the table cell to the table row
               });
               tbody.append(tr); // Append the table row to the body
@@ -117,6 +139,7 @@
                     <th>Service ID</th>
                     <th>Service Name</th>
                     <th>No of Transactions</th>
+                    <th>Category</th>
                     <th>Last transaction At</th>
                 </tr>
             </thead>
@@ -125,8 +148,35 @@
                     <td th:text="${monitor.serviceID}"></td>
                     <td th:text="${monitor.serviceName}"></td>
                     <td th:text="${monitor.noTra}"></td>
-                    <td th:text="${monitor.lastAt}"></td>
+                    <td th:switch="${monitor.category}">
 
+                        <span th:case="'A'">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#009900" class="bi bi-circle-fill" viewBox="0 0 16 16">
+                              <circle cx="8" cy="8" r="8"/>
+                            </svg>
+                        </span>
+                        <span th:case="'B'">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#cc6600" class="bi bi-circle-fill" viewBox="0 0 16 16">
+                              <circle cx="8" cy="8" r="8"/>
+                            </svg>
+                        </span>
+                        <span th:case="'C'">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#ffcc33" class="bi bi-circle-fill" viewBox="0 0 16 16">
+                              <circle cx="8" cy="8" r="8"/>
+                            </svg>
+                        </span>
+                        <span th:case="'D'">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#ff9f80" class="bi bi-circle-fill" viewBox="0 0 16 16">
+                              <circle cx="8" cy="8" r="8"/>
+                            </svg>
+                        </span>
+                        <span th:case="'E'">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#cc3300" class="bi bi-circle-fill" viewBox="0 0 16 16">
+                              <circle cx="8" cy="8" r="8"/>
+                            </svg>
+                        </span>
+                    </td>
+                    <td th:text="${monitor.lastAt}"></td>
                 </tr>
             </tbody>
         </table>

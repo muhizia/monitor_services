@@ -16,5 +16,6 @@ public class MonitorDto {
     private String serviceID;
     private String serviceName;
     private int noTra;
+    private char category;
     private LocalDateTime lastAt;
 }

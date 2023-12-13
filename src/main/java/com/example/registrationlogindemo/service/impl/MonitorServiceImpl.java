@@ -27,6 +27,7 @@ public class MonitorServiceImpl implements MonitorService {
         monitorDto.setServiceID(monitors.getServiceID());
         monitorDto.setNoTra(monitors.getNoTra());
         monitorDto.setServiceName(monitors.getServiceName());
+        monitorDto.setCategory(monitors.getCategory());
         monitorDto.setLastAt(monitors.getLastAt());
         return monitorDto;
     }
